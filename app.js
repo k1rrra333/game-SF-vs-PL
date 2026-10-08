@@ -2,7 +2,7 @@ let player1 = {
     name: "Shadow Fiend",
     lvl: 30,
     health: 400,
-    attack: 40,
+    attack: Math.floor(Math.random() * 31) + 30,
     defense: 10,
     inventory: [],
 
@@ -19,13 +19,9 @@ let player1 = {
         }
     },
 
-    isAlive(opponent) {
-        if (player1.health <= 0) return null
-
-        return (`${ player1 } is dead`);
-
-    },
-
+    isAlive() {
+        return this.health > 0;
+    }
 }
 
 
@@ -33,9 +29,10 @@ let player2 = {
     name: "Phantom Lancer",
     lvl: 30,
     health: 400,
-    attack: 40,
+    attack: Math.floor(Math.random() * 31) + 30,
     defense: 10,
     inventory: [],
+
 
     attackPlayer(opponent) {
 
@@ -50,22 +47,31 @@ let player2 = {
         }
     },
 
-    isAlive(opponent) {
-        if (this.health <= 0) return null
-
-        return (`${ player2 } is dead`);
-
-    },
-
-}
-
- function battle(){
-    
-    while(!isAlive){
-        console.log();
-        
-    
-    
+    isAlive() {
+        return this.health > 0;
     }
 
 }
+
+
+function battle() {
+
+    while (player1.isAlive() && player2.isAlive()) {
+        player1.attackPlayer(player2)
+        console.log(`sf hit pl`)
+        player2.attackPlayer(player1)
+        console.log(`pl health ${player2.health}`)
+        console.log(`=======`)
+
+        if (player1.health <= 0) {
+            console.log(`${player1.name} defeat`)
+        }
+        if (player2.health <= 0){
+            console.log(`${player2.name} defeat`)
+        }
+    }
+
+}
+
+
+battle()
